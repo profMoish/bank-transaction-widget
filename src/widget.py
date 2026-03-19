@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from src.masks import get_mask_account, get_mask_card_number
 
 
@@ -22,4 +24,4 @@ def get_data(date: str) -> str:
     """Функция форматирования даты"""
     if not date or not date.strip():
         raise ValueError('строка с датой пуста')
-    return f'{date[8:10]}.{date[5:7]}.{date[0:4]}'
+    return datetime.strptime(date, "%Y-%m-%dT%H:%M:%S.%f")

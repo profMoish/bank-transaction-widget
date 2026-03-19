@@ -1,3 +1,4 @@
+from datetime import datetime
 import pytest
 
 from src.widget import mask_account_card, get_data
@@ -35,14 +36,16 @@ def test_error_mask_account_card(number):
 
 
 @pytest.mark.parametrize('date, expected', [
-    ('2024-03-11T02:26:18.671407', '11.03.2024'),
-    ('2024-03-12', '12.03.2024'),
-    ('2024/03/12', '12.03.2024'),
+    ('2024-03-11T02:26:18.671407', datetime(2024, 3, 11, 2, 26, 18, 671407)),
 ])
 def test_get_data(date, expected):
     assert get_data(date) == expected
 
-
-def test_error_get_data():
+@pytest.mark.parametrize('date', [
+    '2024-03-12',
+    '2024/03/12',
+    ''
+])
+def test_error_get_data(date):
     with pytest.raises(ValueError):
-        get_data('')
+        get_data(date)
