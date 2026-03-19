@@ -8,7 +8,6 @@ def mask_account_card(number: str) -> str:
 
     _list = number.split(' ')
 
-
     if _list[0] == 'Счет' and len(_list) == 2:
         if _list[1].isdigit():
             return _list[0] + " " + get_mask_account(_list[1])

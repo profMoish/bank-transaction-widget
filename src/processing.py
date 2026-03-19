@@ -1,6 +1,5 @@
-
-
 from src.widget import get_data
+
 
 def filter_by_state(_list: list, state: str = 'EXECUTED') -> list:
     """Функция филтрует список словарей по ключю state."""
