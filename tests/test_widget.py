@@ -21,7 +21,7 @@ from src.widget import get_data, mask_account_card
         ("Счет 73654108430135874305", "Счет **4305"),
     ],
 )
-def test_mask_account_card(number, expected):
+def test_mask_account_card(number: str, expected: str) -> None:
     assert mask_account_card(number) == expected
 
 
@@ -37,7 +37,7 @@ def test_mask_account_card(number, expected):
         "",
     ],
 )
-def test_error_mask_account_card(number):
+def test_error_mask_account_card(number: str) -> None:
     with pytest.raises(ValueError) as e:
         mask_account_card(number)
     print(e.value)
@@ -49,11 +49,11 @@ def test_error_mask_account_card(number):
         ("2024-03-11T02:26:18.671407", datetime(2024, 3, 11, 2, 26, 18, 671407)),
     ],
 )
-def test_get_data(date, expected):
+def test_get_data(date: str, expected: str) -> None:
     assert get_data(date) == expected
 
 
 @pytest.mark.parametrize("date", ["2024-03-12", "2024/03/12", ""])
-def test_error_get_data(date):
+def test_error_get_data(date: str) -> None:
     with pytest.raises(ValueError):
         get_data(date)

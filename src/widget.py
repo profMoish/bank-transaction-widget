@@ -19,7 +19,7 @@ def mask_account_card(number: str) -> str:
         raise ValueError("Неверный формат")
 
 
-def get_data(date: str) -> str:
+def get_data(date: str) -> datetime:
     """Функция форматирования даты"""
     if not date or not date.strip():
         raise ValueError("строка с датой пуста")

@@ -13,7 +13,7 @@ def _list() -> list:
     ]
 
 
-def test_filter_by_state(_list) -> None:
+def test_filter_by_state(_list: list) -> None:
     filtered = filter_by_state(_list)
     assert filtered == [
         {"id": 414288290, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
@@ -27,12 +27,12 @@ def test_filter_by_state(_list) -> None:
     ]
 
 
-def test_filter_by_state_not_found(_list) -> None:
+def test_filter_by_state_not_found(_list: list) -> None:
     filtered = filter_by_state(_list, "PROCESSING")
     assert filtered == []
 
 
-def test_sort_by_date(_list) -> None:
+def test_sort_by_date(_list: list) -> None:
     sorted = sort_by_date(_list)
     print()
     for item in sorted:
