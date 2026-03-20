@@ -1,3 +1,5 @@
+from tests.test_generators import transactions_3
+
 # Виджет, который показывает несколько последних успешных банковских операций клиента.
 
 ## Основные функции
@@ -5,7 +7,7 @@
 ### Функция маскировки номера карты и счета
 
 ```python
-import widget
+from src import widget
 
 widget.mask_account_card('Visa Platinum 7000792289606361')
 widget.mask_account_card('Счет 73654108430135874305')
@@ -13,7 +15,7 @@ widget.mask_account_card('Счет 73654108430135874305')
 
 ### Функция филтрации списока словарей по ключю state
 ```python
-import processing
+from src import processing
 
 processing.filter_by_state([
     {'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
@@ -25,7 +27,7 @@ processing.filter_by_state([
 
 ### Функция для сортировки транзакций по дате
 ```python
-import processing
+from src import processing
 
 processing.sort_by_date([
     {'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
@@ -34,6 +36,40 @@ processing.sort_by_date([
     {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}
 ])
 ```
+
+### Функция для филтрации по задоной валюте
+```python
+from src.generators import filter_by_currency
+
+transactions = ...
+
+usd_transactions = filter_by_currency(transactions, 'USD')
+next(usd_transactions)
+```
+
+### Фунация для вывода описания транзакций
+```python
+from src.generators import transaction_descriptions
+
+transactions = ...
+
+descriptions = transaction_descriptions(transactions)
+next(descriptions)
+```
+
+
+### Функция для генерации номеров карт
+```python
+from src.generators import card_number_generator 
+
+card_number = card_number_generator(1, 5)
+next(card_number)
+next(card_number)
+next(card_number)
+next(card_number)
+next(card_number)
+```
+
 
 ## 🧪 Информация о тестировании
 В проекте используется библиотека pytest для написания и запуска тестов.
