@@ -182,14 +182,106 @@ def test_filter_by_currency_case_2(transactions_3: list) -> None:
     }
 
 
+@pytest.mark.parametrize(
+    "transactions, currency, expected",
+    [
+        (
+            [
+                {
+                    "id": 939719570,
+                    "state": "EXECUTED",
+                    "date": "2018-06-30T02:08:58.425572",
+                    "operationAmount": {"amount": "9824.07", "currency": {"name": "USD", "code": "USD"}},
+                    "description": "Перевод организации",
+                    "from": "Счет 75106830613657916952",
+                    "to": "Счет 11776614605963066702",
+                },
+                {
+                    "id": 999999,
+                    "state": "EXECUTED",
+                    "date": "2018-06-30T02:08:58.425572",
+                    "operationAmount": {"amount": "9824.07", "currency": {"name": "RUB", "code": "RUB"}},
+                    "description": "Перевод с карты на карту",
+                    "from": "Счет 75106830613657916952",
+                    "to": "Счет 11776614605963066702",
+                },
+                {
+                    "id": 142264268,
+                    "state": "EXECUTED",
+                    "date": "2019-04-04T23:20:05.206878",
+                    "operationAmount": {"amount": "79114.93", "currency": {"name": "USD", "code": "USD"}},
+                    "description": "Перевод со счета на счет",
+                    "from": "Счет 19708645243227258542",
+                    "to": "Счет 75651667383060284188",
+                },
+            ],
+            "RUB",
+            {
+                "id": 999999,
+                "state": "EXECUTED",
+                "date": "2018-06-30T02:08:58.425572",
+                "operationAmount": {"amount": "9824.07", "currency": {"name": "RUB", "code": "RUB"}},
+                "description": "Перевод с карты на карту",
+                "from": "Счет 75106830613657916952",
+                "to": "Счет 11776614605963066702",
+            },
+        ),
+        (
+            [
+                {
+                    "id": 939719570,
+                    "state": "EXECUTED",
+                    "date": "2018-06-30T02:08:58.425572",
+                    "operationAmount": {"amount": "9824.07", "currency": {"name": "USD", "code": "USD"}},
+                    "description": "Перевод организации",
+                    "from": "Счет 75106830613657916952",
+                    "to": "Счет 11776614605963066702",
+                },
+                {
+                    "id": 999999,
+                    "state": "EXECUTED",
+                    "date": "2018-06-30T02:08:58.425572",
+                    "operationAmount": {"amount": "9824.07", "currency": {"name": "ARS", "code": "ARS"}},
+                    "description": "Перевод с карты на карту",
+                    "from": "Счет 75106830613657916952",
+                    "to": "Счет 11776614605963066702",
+                },
+                {
+                    "id": 142264268,
+                    "state": "EXECUTED",
+                    "date": "2019-04-04T23:20:05.206878",
+                    "operationAmount": {"amount": "79114.93", "currency": {"name": "USD", "code": "USD"}},
+                    "description": "Перевод со счета на счет",
+                    "from": "Счет 19708645243227258542",
+                    "to": "Счет 75651667383060284188",
+                },
+            ],
+            "ARS",
+            {
+                "id": 999999,
+                "state": "EXECUTED",
+                "date": "2018-06-30T02:08:58.425572",
+                "operationAmount": {"amount": "9824.07", "currency": {"name": "ARS", "code": "ARS"}},
+                "description": "Перевод с карты на карту",
+                "from": "Счет 75106830613657916952",
+                "to": "Счет 11776614605963066702",
+            },
+        ),
+    ],
+)
+def test_filter_by_currency_case_3(transactions: list, currency: str, expected: dict) -> None:
+    g_transactions = filter_by_currency(transactions, currency)
+    assert next(g_transactions) == expected
+
+
 def test_filter_by_currency_not_found(transactions: list) -> None:
     ars_transactions = filter_by_currency(transactions, "ARS")
-    assert next(ars_transactions) is None
+    assert list(ars_transactions) == []
 
 
 def test_filter_by_currency_empy() -> None:
     ars_transactions = filter_by_currency([], "ARS")
-    assert next(ars_transactions) is None
+    assert list(ars_transactions) == []
 
 
 def test_transaction_descriptions(transactions: list) -> None:
@@ -199,7 +291,7 @@ def test_transaction_descriptions(transactions: list) -> None:
     assert next(descriptions) == "Перевод со счета на счет"
 
     descriptions = transaction_descriptions([])
-    assert next(descriptions) is None
+    assert list(descriptions) == []
 
 
 def test_transaction_descriptions_case_2(transactions_2: list) -> None:
@@ -218,7 +310,6 @@ def test_transaction_descriptions_case_3(transactions_3: list) -> None:
     assert next(descriptions) == "Перевод со счета на счет"
     assert next(descriptions) == "Перевод с карты на карту"
     assert next(descriptions) == "Перевод организации"
-    assert next(descriptions) is None
 
 
 def test_card_number_generator() -> None:
