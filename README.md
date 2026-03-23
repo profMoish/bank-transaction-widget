@@ -69,7 +69,18 @@ next(card_number)
 next(card_number)
 next(card_number)
 ```
+### Фунция декоратор для логирования
+```python
+from src.decorators import log
 
+@log() # лог ввыводить в консоль
+def func(a, b):
+    pass
+
+@log('log.txt') # лок записывать в файл
+def func2(a, b):
+    pass
+```
 
 ## 🧪 Информация о тестировании
 В проекте используется библиотека pytest для написания и запуска тестов.
