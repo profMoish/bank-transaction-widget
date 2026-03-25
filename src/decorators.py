@@ -1,7 +1,7 @@
 from datetime import datetime
 
 
-def log(_func=None, filename: str = ""):
+def log(_func=None, filename: str = None):
     """ Decorator for logging functions """
     def decorator(func):
         def wrapper(*args, **kwargs):
@@ -16,7 +16,7 @@ def log(_func=None, filename: str = ""):
 
             msg += f'Start: {start}\nEnd: {datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")}\n\n'
 
-            if filename:
+            if filename is not None:
                 with open(filename, "a", encoding="utf-8") as file:
                     file.write(msg)
             else:
