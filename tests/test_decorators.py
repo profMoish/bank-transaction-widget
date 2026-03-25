@@ -1,12 +1,12 @@
 from src.decorators import log
 
 
-@log()
-def div(a, b):
+@log
+def div(a, b) -> float:
     return a / b
 
 
-def test_log(capsys):
+def test_log(capsys) -> None:
 
     r = div(10, 2)
     out, err = capsys.readouterr()
@@ -34,7 +34,7 @@ def test_log_in_file():
 
     name_log = "test_log.txt"
 
-    @log(name_log)
+    @log(filename=name_log)
     def division(a, b):
         return a / b
 
