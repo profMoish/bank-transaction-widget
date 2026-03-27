@@ -1,7 +1,7 @@
 from datetime import datetime
 
 
-def log(filename: str = None):
+def log(filename = None):
     """ Decorator for logging functions """
     def decorator(func):
         def wrapper(*args, **kwargs):
