@@ -1,8 +1,9 @@
 from datetime import datetime
 
 
-def log(filename = None):
-    """ Decorator for logging functions """
+def log(filename=None):
+    """Decorator for logging functions"""
+
     def decorator(func):
         def wrapper(*args, **kwargs):
             start = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
