@@ -9,7 +9,7 @@ def get_amount(operation):
     try:
         amount = operation["operationAmount"]["amount"]
         if operation["operationAmount"]["currency"]["code"] == "RUB":
-            return amount
+            return float(amount)
         else:
             load_dotenv()
 
@@ -21,6 +21,6 @@ def get_amount(operation):
                 headers={"apikey": api_key},
                 params={"from": code, "to": "RUB", "amount": amount},
             )
-            return r.json()["result"]
+            return float(r.json()["result"])
     except KeyError:
-        return None
+        return float(0.0)
