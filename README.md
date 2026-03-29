@@ -69,6 +69,23 @@ next(card_number)
 next(card_number)
 next(card_number)
 ```
+
+### Фунция для получения списка транзакций из csv файла
+```python
+from src.csv_excel import get_operations_form_csv_file
+
+get_operations_form_csv_file("data/transactions.csv")
+```
+
+### Фунция для получения списка транзакций из excel файла
+```python
+from src.csv_excel import get_operations_form_excel_file
+
+get_operations_form_excel_file("data/transactions_excel.xlsx")
+```
+
+
+
 ### Фунция декоратор для логирования
 ```python
 from src.decorators import log
