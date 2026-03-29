@@ -25,3 +25,11 @@ def test_get_amount_case_two():
     get_amount(operations[2])
     get_amount({})
     mock_get.assert_called_once()
+
+
+def test_get_amount_case_three():
+    with patch("requests.get") as mock_get:
+        mock_get.return_value.json.return_value = {"result": 5.5}
+        operations = get_operations_form_json_file("data/operations.json")
+        get_amount(operations[4])
+        mock_get.assert_called_once()
