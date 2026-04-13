@@ -12,6 +12,7 @@ def get_operations_form_csv_file(path: str):
 def get_operations_form_excel_file(path: str):
     """Returns a pandas DataFrame from a excel file"""
     try:
-        return pd.read_excel(path).to_dict(orient="records")
+        r = pd.read_excel(path).to_dict(orient="records")
+        return r
     except FileNotFoundError:
         return []

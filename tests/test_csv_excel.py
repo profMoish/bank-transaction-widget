@@ -27,9 +27,13 @@ def test_get_operation_form_excel_file() -> None:
 
 
 def test_get_operation_form_excel_file_with_mock() -> None:
-    mock_read_csv = Mock()
-    pd.read_csv = mock_read_csv
-    mock_read_csv.return_value.to_dict.return_value = [{"col1": 1, "col2": 2}]
-    r = get_operations_form_csv_file("data/transactions.csv")
+    original_read_excel = pd.read_excel
+
+    mock_read_excel = Mock()
+    pd.read_excel = mock_read_excel
+    mock_read_excel.return_value.to_dict.return_value = [{"col1": 1, "col2": 2}]
+    r = get_operations_form_excel_file("data/transactions_excel.xlsx")
     assert len(r) == 1
-    mock_read_csv.assert_called_once()
+    mock_read_excel.assert_called_once()
+
+    pd.read_excel = original_read_excel
