@@ -4,6 +4,31 @@ from tests.test_generators import transactions_3
 
 ## Основные функции
 
+### Функция отвечает за основную логику проекта и связывает функциональности между собой.
+```python
+from src.main import main
+
+main()
+```
+
+### Подсчитывает количество банковских операций по каждой категории
+
+```python
+from src.category_counting import process_bank_operations
+
+#...
+process_bank_operations(operations, ["Перевод организации"])
+```
+
+### Ищет банковские операции по строке в описании
+
+```python
+from src.search import process_bank_search
+
+#...
+process_bank_search(operations, "Перевод организации")
+```
+
 ### Функция маскировки номера карты и счета
 
 ```python
