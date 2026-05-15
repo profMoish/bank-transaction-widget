@@ -23,4 +23,9 @@ def get_data(date: str) -> datetime:
     """Функция форматирования даты"""
     if not date or not date.strip():
         raise ValueError("строка с датой пуста")
-    return datetime.strptime(date, "%Y-%m-%dT%H:%M:%S.%f")
+    for fmt in ("%Y-%m-%dT%H:%M:%S.%f", "%Y-%m-%dT%H:%M:%SZ"):
+        try:
+            return datetime.strptime(date, fmt)
+        except ValueError:
+            continue
+    raise ValueError(f"Unrecognised datetime format: {date!r}")

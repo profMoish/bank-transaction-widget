@@ -2,9 +2,10 @@ from src.widget import get_data
 
 
 def filter_by_state(_list: list, state: str = "EXECUTED") -> list:
-    """Функция филтрует список словарей по ключю state."""
+    """Функция филтрует список словарей по клучю state."""
     list = [x for x in _list if x.get("state") is not None]
-    return [transaction for transaction in list if transaction["state"] == state]
+    r = [transaction for transaction in list if transaction["state"] == state]
+    return r
 
 
 def sort_by_date(_list: list, reverse: bool = True) -> list:
