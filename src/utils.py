@@ -12,7 +12,7 @@ def get_operations_form_json_file(path):
     """Returns a list of operations form json file"""
     my_logger.info("Попытка прочитать транзацкции из json файла")
     try:
-        with open(path) as f:
+        with open(path, 'r', encoding='utf-8') as f:
             my_logger.info(f'Файл "{path}" открыли')
             result = json.load(f)
             my_logger.info("Содержимое файла конверитровали в json")
